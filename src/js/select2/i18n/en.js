@@ -39,6 +39,9 @@ define(function () {
     },
     searching: function () {
       return 'Searching…';
+    },
+    remove: function(item) {
+      return 'Remove "' + (item.text || item.title) + '"';
     }
   };
 });

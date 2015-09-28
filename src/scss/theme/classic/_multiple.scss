@@ -38,6 +38,9 @@
   }
 
   .select2-selection__choice__remove {
+    background: none;
+    border: none;
+
     color: $remove-color;
     cursor: pointer;
 
@@ -45,8 +48,9 @@
     font-weight: bold;
 
     margin-right: 2px;
+    padding: 0;
 
-    &:hover {
+    &:hover, &:focus {
       color: $remove-hover-color;
     }
   }

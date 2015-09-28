@@ -65,12 +65,17 @@ define([
     return escapeMarkup(template(data, container));
   };
 
-  MultipleSelection.prototype.selectionContainer = function () {
+  MultipleSelection.prototype.selectionContainer = function (selection) {
+    var buttonText = this.options.get('translations').get('remove');
+    var escapeMarkup = this.options.get('escapeMarkup');
+
     var $container = $(
       '<li class="select2-selection__choice">' +
-        '<span class="select2-selection__choice__remove" role="presentation">' +
-          '&times;' +
-        '</span>' +
+        '<button class="select2-selection__choice__remove">' +
+          '<span class="select2-hidden-accessible">' +
+            escapeMarkup(buttonText(selection)) +
+          '</span>&times;' +
+        '</button>' +
       '</li>'
     );
 
@@ -89,7 +94,7 @@ define([
     for (var d = 0; d < data.length; d++) {
       var selection = data[d];
 
-      var $selection = this.selectionContainer();
+      var $selection = this.selectionContainer(selection);
       var formatted = this.display(selection, $selection);
 
       $selection.append(formatted);

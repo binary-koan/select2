@@ -49,11 +49,10 @@ test('templateSelection can addClass', function (assert) {
     templateOptions
   );
 
-  var $container = selection.selectionContainer();
+  var selectedObject = { text: 'test' };
+  var $container = selection.selectionContainer(selectedObject);
 
-  var out = selection.display({
-    text: 'test'
-  }, $container);
+  var out = selection.display(selectedObject, $container);
 
   assert.ok(called);
 
@@ -94,7 +93,13 @@ test('escapeMarkup is being used', function (assert) {
   }]);
 
   assert.equal(
-    $rendered.text().substr(1),
+    $rendered.text().substr(8, unescapedText.length),
+    unescapedText,
+    'The remove button text should be escaped by default to prevent injection'
+  );
+
+  assert.equal(
+    $rendered.text().substr(10 + unescapedText.length),
     unescapedText,
     'The text should be escaped by default to prevent injection'
   );
