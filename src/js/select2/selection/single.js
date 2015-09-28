@@ -33,7 +33,10 @@ define([
     var id = container.id + '-container';
 
     this.$selection.find('.select2-selection__rendered').attr('id', id);
-    this.$selection.attr('aria-labelledby', id);
+
+    var labels = this.$selection.attr('aria-labelledby') + ' ' + id;
+
+    this.$selection.attr('aria-labelledby', labels);
 
     this.$selection.on('mousedown', function (evt) {
       // Only respond to left clicks

@@ -17,6 +17,10 @@ define([
 
     this.options = new Options(options, $element);
 
+    if (this.options.labels == null) {
+      this.options.labels = this._findOriginalLabels();
+    }
+
     Select2.__super__.constructor.call(this);
 
     // Set up the tabindex
@@ -77,8 +81,7 @@ define([
     });
 
     // Hide the original select
-    $element.addClass('select2-hidden-accessible');
-    $element.attr('aria-hidden', 'true');
+    $element.hide();
 
     // Synchronize any monitored attributes
     this._syncAttributes();
@@ -87,6 +90,23 @@ define([
   };
 
   Utils.Extend(Select2, Utils.Observable);
+
+  Select2.prototype._findOriginalLabels = function() {
+    var self = this;
+    var id = this.$element.attr('id');
+
+    if (id) {
+      return jQuery.map($('label[for="' + id + '"]'), function(el, i) {
+        if (!$(el).attr('id')) {
+          $(el).attr('id', self.id + '-label-' + i);
+        }
+        return $(el).attr('id');
+      });
+    }
+    else {
+      return [];
+    }
+  }
 
   Select2.prototype._generateId = function ($element) {
     var id = '';
